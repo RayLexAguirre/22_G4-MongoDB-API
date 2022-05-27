@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+        }
+        
+        .styled-table th,
+        .styled-table td {
+        padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+        }
+        
+        .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+        }
+        
+        .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+        }
+    </style>
+<body>
+
+ 
+
+<!--Creamos una nueva tabla para poder mostrar los datos de nuestra BD.-->
+<div class="table-info">
+    <h1>Registros</h1>
+    <table class="styled-table">
+        <tr>
+        <th>NSS</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Tipo de sangre</th>
+        <th></th>
+        </tr>
+        
+        <!--Realizamos un forEach() para poder iterar en todos los documentos que hay en la colección.-->
+        <% Object.keys(persons).forEach(function(prop) { %>
+        
+        <tr>
+        <td><%- persons[prop].nss %></td>
+        <td><%- persons[prop].nombre %></td>
+        <td><%- persons[prop].edad %></td>
+        <td><%- persons[prop].tipoSangre %></td>
+         <!--Añadimos un hipervínculo para realizar la opción de "Eliminar" en cada uno de los documentos.-->
+        <td><a href="<%= `deletePerson/${persons[prop]._id}`%>">Eliminar</a></td>        
+        </tr>
+        <% }); %>        
+    </table>
+</div>
+
+<!--Creamos un hipervínculo para poder regresar a la ruta "main".-->
+<br><a href="./main">Regresar</a>
+</body>
+</html>
