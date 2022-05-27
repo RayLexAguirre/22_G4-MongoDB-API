@@ -7,9 +7,9 @@ let Person = require('../models/person');
     // Definiendo la ruta que recibirá el objeto JSON.
     router.get('/persons', function(req, res, next) {
         Person.find(function (err, persons) {
-        if (err) return next (err);
+        if (err) return next(err);
         //res.json(persons)
-        res.render('personsIndex', {persons}); //Renderizamos "personsIndex" para la vista "persons".
+        res.render('personsIndex', {persons}); //Renderizamos "personsIndex" para la ruta "persons".
         });
     });
 
@@ -22,6 +22,16 @@ let Person = require('../models/person');
             res.redirect('/persons') //Nos redirijimos a la misma ruta para dar un "refresh".       
         });
     });  
+
+    //Ruta GET para poder actualizar el registro o documento de una persona.
+    router.get('/findById/:id', function(req, res, next) {
+        /*Utilizamos el método findById para regresar una promesa 
+        (puede ser error o poder encotrar el documento seleccionado.)*/
+        Person.findById(req.params.id, function (err, person) {
+            if (err) return next(err);
+            res.render('personUpdate', {person});   //Renderizamos "personUpdate" para la ruta "persons"   
+        });
+    });     
 
     /*Esta ruta GET nos permitirá mostrar el formulario que registrará y enviará los datos para poder
     crear un nuevo documento.*/
@@ -41,6 +51,21 @@ let Person = require('../models/person');
         });
         myPerson.save(); //Guarda el nuevo registro en la base de datos.
     }); 
+
+    /*Esta ruta POST se encargará de actualizar el documento seleccionado por la ruta GET
+    que contiene findById, además de que contendrá los datos enviados en el formulario.*/
+    router.post('/updatePerson', function(req, res, next) {
+        /*El método findByIdAndUpdate recibe dos parámetros (el ID del documento a actualizar y 
+        el/los nuevo(s) valor(es)).*/
+        Person.findByIdAndUpdate(req.body.objId, {
+            nombre: req.body.nombre,
+            edad: req.body.edad,
+            tipoSangre: req.body.tipoSangre,
+            nss: req.body.nss }, function(err, post) {
+        if (err) return next(err);
+        res.redirect('/persons');
+        });
+    });
 
 // Exportando el módulo.
 module.exports = router; 

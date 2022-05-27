@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Actualizar persona</h1> 
+
+<!--Creamos un nuevo formulario para poder actulizar los datos del documento seleccionadopor ID.-->
+<form action="/updatePerson" method="POST">
+    <label for="nss">NSS:</label>
+    <input type="text" id="nss" name="nss" value="<%=`${person.nss}`%>"><br><br>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="<%=`${person.nombre}`%>"><br><br>
+    <label for="edad">Edad:</label>
+    <input type="text" id="edad" name="edad" value="<%=`${person.edad}`%>"><br><br>
+    <label for="tipoSangre">Tipo de sangre:</label>
+    <input type="text" id="tipoSangre" name="tipoSangre" value="<%=`${person.tipoSangre}`%>"><br><br>
+    <label for="objId">ID:</label> 
+    <input type="text" id="objId" name="objId" value="<%=`${person._id}`%>"><br><br>      
+    <input type="submit" value="Submit">
+</form>
+<br><a href="/persons">Regresar</a>
+</body>
+</html>

@@ -45,6 +45,7 @@
         <th>Edad</th>
         <th>Tipo de sangre</th>
         <th></th>
+        <th></th>
         </tr>
         
         <!--Realizamos un forEach() para poder iterar en todos los documentos que hay en la colección.-->
@@ -55,7 +56,9 @@
         <td><%- persons[prop].nombre %></td>
         <td><%- persons[prop].edad %></td>
         <td><%- persons[prop].tipoSangre %></td>
-         <!--Añadimos un hipervínculo para realizar la opción de "Eliminar" en cada uno de los documentos.-->
+         <!--Añadimos dos nuevos hipervínculos para realizar las acciones 
+        de "Eliminar" o "Actualizar" en cada uno de los documentos.-->
+        <td><a href="<%= `findById/${persons[prop]._id}`%>">Actualizar</a></td>  
         <td><a href="<%= `deletePerson/${persons[prop]._id}`%>">Eliminar</a></td>        
         </tr>
         <% }); %>        
